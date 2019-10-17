@@ -1,0 +1,81 @@
+<div id="private-layout-two-column" class="container-fluid">
+        
+    <div class="header-wrapper row">
+        <public-header></public-header>
+    </div>
+
+    <div class="nav-wrapper row">
+        <private-nav></private-nav>
+        <!-- <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle btn navbar-btn" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{dashboardCtrl.rutas.appBaseUrl+dashboardCtrl.rutas.dashboard}}">Queen - Intranet</a>
+                </div>
+                <div collapse="navCollapsed" class="navbar-collapse navbar-responsive-collapse collapse" aria-expanded="false" aria-hidden="true" style="height: 0px;">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a>Hola! {{dashboardCtrl.usuario}}</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a>
+                                <span class="glyphicon glyphicon-bell"></span> Notificaciones
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="glyphicon glyphicon-cog"></span> Configuración
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{dashboardCtrl.rutas.appBaseUrl+dashboardCtrl.rutas.logout}}">
+                                <span class="glyphicon glyphicon-off"></span> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav> -->
+    </div>
+    
+    <div class="central-wrapper row">
+        <aside class="col-xs-12 col-lg-3">
+            <private-aside></private-aside>
+        </aside>
+
+        <section class="col-xs-12 col-lg-7">
+            <article>
+                <header>
+                    <h3>Bienvenido a la Intranet! Estás en el dashboard privado.</h3>
+                </header>
+                <p>
+                    En esta sección solo se admiten miembros registrados.
+
+                    <ol>
+                        <li ng-repeat="song in dashboardCtrl.songs">"{{song.name}}" by <strong>{{song.credits}}</strong>. Número de reproducciones : {{song.reproductions | filter : number}}</li>
+                    </ol>
+
+                </p>
+            </article>
+        </section>
+    </div>
+    
+    <div class="footer-wrapper row">
+        <footer class="col-xs-12">
+                <header>
+                    <h2>Links Oficiales</h2>
+                </header>
+                <a href="#/">Inicio</a> |
+                <a href="http://www.queenonline.com/" target="_blank">Sitio Oficial</a> | 
+                <a href="#/contacto">Contacto</a>
+        </footer>
+    </div>
+
+</div>
