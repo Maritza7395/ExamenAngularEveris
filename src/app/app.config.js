@@ -67,6 +67,7 @@ var app = angular.module("queen", ["ngRoute", "ngResource", "ui.bootstrap"])
                     authNeeded : true
                 }
             })
+
             .when(rutas.compra, {
                 controller : "compraController",
                 controllerAs : "compraCtrl",
@@ -75,6 +76,7 @@ var app = angular.module("queen", ["ngRoute", "ngResource", "ui.bootstrap"])
                     authNeeded : true
                 }
             })
+
             .otherwise({
                 redirectTo: rutas.home
             });

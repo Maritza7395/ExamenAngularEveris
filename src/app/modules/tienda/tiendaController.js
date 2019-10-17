@@ -1,4 +1,6 @@
+
 app.controller("tiendaController", ["rutas", "Auth","Compra", "Producto","SessionStorage", function(rutas, Auth, Compra, Producto, SessionStorage){
+
     var ctrl=this;
     ctrl.rutas = rutas;
     ctrl.usuario = Auth.parseToken(Auth.getToken()).email;
@@ -57,5 +59,6 @@ app.controller("tiendaController", ["rutas", "Auth","Compra", "Producto","Sessio
             ctrl.getCarrito();
         });
     }
+
 
 }])

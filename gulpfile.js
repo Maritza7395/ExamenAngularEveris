@@ -40,6 +40,7 @@ gulp.task('js-app-dist', function(done) {
         srcDir+'/app/modules/tienda/tiendaController.js',
         srcDir+'/app/modules/compras/compraController.js',
         srcDir+'/app/shared/services/tiendaService.js'
+
     ];
 
     gulp.src(appFiles)

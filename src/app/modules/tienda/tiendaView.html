@@ -17,6 +17,7 @@
             </header>
             <section class="col-xs-12 col-lg-6">
                 <article>
+
                     <p>
                         <ul style="list-style: none;">
                             <li ng-repeat="producto in tiendaCtrl.productos track by $index">
@@ -28,12 +29,14 @@
                                         <strong>"{{producto.nombre}}"| Precio: {{producto.moneda+" "+producto.precio}}</strong>|{{producto.desc}}
                                         
                                     </div>
+
                                     <form name="tiendaCtrl.tiendaForm{{$index}}" class="form-inline" novalidate>
                                         <div class="form-group col-md-3" ng-class="tiendaCtrl.tiendaForm{{$index}}.qty_{{$index}}.$invalid && tiendaCtrl.tiendaForm{{$index}}.qty_{{$index}}.$touched && !tiendaCtrl.tiendaForm{{$index}}.qty_{{$index}}.$error.required ?'has-error':'' ">
                                             <input class="form-control" type="number" min="1" max="5"  name="qty_{{$index}}" ng-model="tiendaCtrl.cant[$index]" required>
                                             <button class="btn btn-success" ng-click="tiendaCtrl.addItem($index)" ng-disabled="tiendaCtrl.tiendaForm{{$index}}.$invalid">Agregar</button>
                                         </div>
                                     </form>
+
                                 </div><br>
                             </li>
                         </ul>
@@ -47,6 +50,7 @@
                         No hay items en el Carrito
                     </span>
                     <table class="table table-striped" ng-if="tiendaCtrl.carrito.cantidadTotal > 0">
+
                         <thead>
                         <tr>
                             <th>Producto</th>
@@ -60,6 +64,7 @@
                             <td>{{item.moneda}}{{item.precio * item.cantidad}}</td>
                             <td>{{item.cantidad}}</td>
                             <td><button class="btn btn-danger" ng-click="tiendaCtrl.remove($index)" type="button">Eliminar</button> </td>
+
                         </tr>
                         </tbody>
                         <tfoot>
@@ -72,6 +77,7 @@
                     <span ng-if="tiendaCtrl.compraExitosa==true;">
                         La compra ha sido exitosa. <a href="{{tiendaCtrl.rutas.appBaseUrl+tiendaCtrl.rutas.compra}}">Ir a mis Compras</a>
                     </span>
+
                 </div>
             </aside>
         </div>
