@@ -3,7 +3,6 @@ app.controller("tiendaController", ["rutas", "Auth", "Producto","SessionStorage"
     ctrl.rutas = rutas;
     ctrl.usuario = Auth.parseToken(Auth.getToken()).email;
     ctrl.productos = Producto.query();
-    ctrl.carrito = [];
     ctrl.getCarrito =   function(){
         if(Object.entries(SessionStorage.getObject('carrito')).length === 0){
             ctrl.carrito = {
@@ -21,15 +20,21 @@ app.controller("tiendaController", ["rutas", "Auth", "Producto","SessionStorage"
         }
     };
     ctrl.getCarrito();
-    ctrl.addItem = function(item){
-        var push = ctrl.carrito.push(item);
-        SessionStorage.setObject("carrito", push);
-        var temp = SessionStorage.getObject("carrito");
-        console.log(sessionStorage.getObject("carrito"));
-        console.log(ctrl.carrito[0]['nombre']);
-        console.log(ctrl.carrito['1']);
-    }
-    ctrl.remove=function(item){
-        SessionStorage.removeItem(item);
-    };
+
+    ctrl.addItem = function(index){
+        var itemIndex =  ctrl.carrito.items.findIndex(function(item){
+             return item.id == ctrl.productos[index].id;
+         })
+         if(itemIndex==-1){
+             var item =ctrl.productos[index];
+             item.cantidad =ctrl.cant[index];
+             ctrl.carrito.items.push(item);
+         }else{
+             ctrl.carrito.items[itemIndex].cantidad =ctrl.carrito.items[itemIndex].cantidad +ctrl.cant[index];
+         }
+         ctrl.carrito.cantidadTotal = ctrl.carrito.cantidadTotal+ ctrl.cant[index]
+         ctrl.carrito.precioTotal = ctrl.carrito.precioTotal+ (ctrl.cant[index]*ctrl.productos[index].precio)
+         ctrl.cant[index] = '';
+         SessionStorage.setObject('carrito', ctrl.carrito);
+     }
 }])
