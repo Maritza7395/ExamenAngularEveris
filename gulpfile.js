@@ -34,10 +34,12 @@ gulp.task('js-app-dist', function(done) {
         srcDir+'/app/shared/services/localStorageService.js',
         srcDir+'/app/shared/services/sessionStorageService.js',
         srcDir+'/app/shared/services/dashboardService.js',
+        srcDir+'/app/shared/services/compraService.js',
         srcDir+'/app/shared/directives/private-nav/privateNavDirective.js',
         srcDir+'/app/shared/directives/private-aside/privateAsideDirective.js',
         srcDir+'/app/modules/tienda/tiendaController.js',
-        srcDir+'/app/shared/services/tiendaService.js',
+        srcDir+'/app/modules/compras/compraController.js',
+        srcDir+'/app/shared/services/tiendaService.js'
     ];
 
     gulp.src(appFiles)

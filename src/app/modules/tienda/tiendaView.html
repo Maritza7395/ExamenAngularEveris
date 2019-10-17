@@ -43,6 +43,9 @@
             <aside class="col-xs-12 col-lg-3">
                 <div style="background-color:aliceblue">
                     <h4>Carrito</h4>
+                    <span ng-if="tiendaCtrl.carrito.cantidadTotal == 0 && tiendaCtrl.compraExitosa==false">
+                        No hay items en el Carrito
+                    </span>
                     <table class="table table-striped" ng-if="tiendaCtrl.carrito.cantidadTotal > 0">
                         <thead>
                         <tr>
@@ -54,18 +57,21 @@
                         <tbody ng-repeat="item in tiendaCtrl.carrito.items">
                         <tr>
                             <td>{{item.nombre}}</td>
-                            <td>{{item.precio * item.cantidad}}</td>
+                            <td>{{item.moneda}}{{item.precio * item.cantidad}}</td>
                             <td>{{item.cantidad}}</td>
-                            <td><button class="btn btn-danger" ng-click="tiendaCtrl.remove(item)" type="button">Eliminar</button> </td>
+                            <td><button class="btn btn-danger" ng-click="tiendaCtrl.remove($index)" type="button">Eliminar</button> </td>
                         </tr>
                         </tbody>
                         <tfoot>
                             <td>Total: </td>
                             <td>{{tiendaCtrl.carrito.precioTotal}} </td>
                             <td>{{tiendaCtrl.carrito.cantidadTotal}} </td>
-                            <td><button class="btn btn-success" type="button">Comprar</button></td>
+                            <td><button class="btn btn-success" ng-click="tiendaCtrl.comprar()" type="button">Comprar</button></td>
                         </tfoot>
                     </table>
+                    <span ng-if="tiendaCtrl.compraExitosa==true;">
+                        La compra ha sido exitosa. <a href="{{tiendaCtrl.rutas.appBaseUrl+tiendaCtrl.rutas.compra}}">Ir a mis Compras</a>
+                    </span>
                 </div>
             </aside>
         </div>

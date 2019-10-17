@@ -67,14 +67,14 @@ var app = angular.module("queen", ["ngRoute", "ngResource", "ui.bootstrap"])
                     authNeeded : true
                 }
             })
-            // .when(rutas.compra, {
-            //     controller : "dashboardController",
-            //     controllerAs : "dashboardCtrl",
-            //     templateUrl : "./app/modules/dashboard/dashboardView.html",
-            //     data : {
-            //         authNeeded : true
-            //     }
-            // })
+            .when(rutas.compra, {
+                controller : "compraController",
+                controllerAs : "compraCtrl",
+                templateUrl : "./app/modules/compras/compraView.html",
+                data : {
+                    authNeeded : true
+                }
+            })
             .otherwise({
                 redirectTo: rutas.home
             });

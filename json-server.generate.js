@@ -1,6 +1,6 @@
 var faker = require('faker');
 
-var database = { productos:[], discos: [], integrantes: [], posts: [], dashboards: []};
+var database = { productos:[], discos: [], integrantes: [], posts: [], dashboards: [], compras:[]};
 
 database.productos.push({
   id: 1,
