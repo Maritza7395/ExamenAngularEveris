@@ -28,7 +28,6 @@
                                     </div>
                                     <div class="col-md-6"> 
                                         <strong>"{{producto.nombre}}"| Precio: {{producto.moneda+" "+producto.precio}}</strong>|{{producto.desc}}
-                                        
                                     </div>
                                     <div class="col-md-1 form-group">
                                         <input name="cantidad{{$index}}"  ng-model="tiendaCtrl.cantidad[$index]"  type="number" min="1" max="5" required>
@@ -46,7 +45,7 @@
             <aside class="col-xs-12 col-lg-3">
                 <div style="background-color:aliceblue">
                     <h4>Carrito</h4>
-                    <table class="table table-striped">
+                    <table class="table table-striped" ng-if="tiendaCtrl.carrito.cantidadTotal > 0">
                         <thead>
                         <tr>
                             <th>Producto</th>
