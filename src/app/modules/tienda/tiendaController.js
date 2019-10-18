@@ -63,6 +63,7 @@ app.controller("tiendaController", ["rutas", "Auth", "Producto", "Compra","Sessi
         for (var i = 0; i <ctrl.carrito.items.length ; i++){
             ctrl.carrito.precioTotal += ctrl.carrito.items[i].precio;
         };
+        ctrl.cantidad[index] = '';
     
     };
     ctrl.remove=function(item){
@@ -76,9 +77,10 @@ app.controller("tiendaController", ["rutas", "Auth", "Producto", "Compra","Sessi
     };
 
     ctrl.compra=function(){
-        Compra.save(ctrl.carrito, function(carrito){
-            SessionStorage.remove('carrito');
-            ctrl.getCarrito();
-        });
+            Compra.save(ctrl.carrito, function(carrito){            
+                SessionStorage.remove('carrito');
+                ctrl.getCarrito();
+                ctrl.compraExitosa=true;
+            }); 
     };
 }])

@@ -29,6 +29,7 @@
                                     <div class="col-md-6"> 
                                         <strong>"{{producto.nombre}}"| Precio: {{producto.moneda+" "+producto.precio}}</strong>|{{producto.desc}}
                                     </div>
+                                
                                     <div class="col-md-1 form-group">
                                         <input name="cantidad{{$index}}"  ng-model="tiendaCtrl.cantidad[$index]"  type="number" min="1" max="5" required>
                                     </div>
@@ -45,6 +46,9 @@
             <aside class="col-xs-12 col-lg-3">
                 <div style="background-color:aliceblue">
                     <h4>Carrito</h4>
+                    <p ng-if="tiendaCtrl.carrito.cantidadTotal == 0 && !tiendaCtrl.compraExitosa">
+                        No hay item en el Carrito
+                    </p>
                     <table class="table table-striped" ng-if="tiendaCtrl.carrito.cantidadTotal > 0">
                         <thead>
                         <tr>
@@ -65,9 +69,12 @@
                             <td>Total: </td>
                             <td>{{tiendaCtrl.carrito.precioTotal}}</td>
                             <td>{{tiendaCtrl.carrito.cantidadTotal}}</td>
-                            <td><button class="btn btn-success" ng-click="tiendaCtrl.compra()" type="button">Comprar</button></td>
+                            <td><button class="btn btn-success" ng-click="tiendaCtrl.compra($event)" type="button">Comprar</button></td>
                         </tfoot>
                     </table>
+                    <p ng-if="tiendaCtrl.compraExitosa==true">
+                        La compra ha sido exitosa. <a href="{{tiendaCtrl.rutas.appBaseUrl+tiendaCtrl.rutas.compra}}">Ir a mis Compras</a>
+                    </p>
                 </div>
             </aside>
         </div>
