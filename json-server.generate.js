@@ -2,7 +2,6 @@ var faker = require('faker');
 
 var database = { productos:[], discos: [], integrantes: [], posts: [], dashboards: [], compras:[]};
 
-
 database.productos.push({
   id: 1,
   nombre: "Hot Space",
@@ -119,5 +118,47 @@ database.dashboards.push({
   ] 
 });
 
+database.compras.push({
+  "fecha": "2019-10-14T05:45:08.982Z",
+  "items": [
+      {
+          "id": 3,
+          "nombre": "A Kind Of Magic",
+          "desc": "\"The film needed their energy.\" Russell Mulcahy – Director Highlander",
+          "urlImagen": "./img/akom.jpg",
+          "precio": 8457,
+          "moneda": "CLP",
+          "stock": 3542,
+          "cantidad": 4
+      },
+      {
+          "id": 2,
+          "nombre": "The Works",
+          "desc": "\"We had done some really serious, epic videos in the past, and we just wanted people to know that we didn't take ourselves too seriously, that we could still laugh at ourselves. I think we proved that.\" Roger Taylor on I Want To Break Free",
+          "urlImagen": "./img/works.jpg",
+          "precio": 21000,
+          "moneda": "CLP",
+          "stock": 1452,
+          "cantidad": 2
+      },
+      {
+          "id": 1,
+          "nombre": "Hot Space",
+          "desc": "\"New styles, and a whole new sense of values. You’ll love Hot Space ...eventually.\" Record Mirror",
+          "urlImagen": "./img/hot-space.jpg",
+          "precio": 15000,
+          "moneda": "CLP",
+          "stock": 8915,
+          "cantidad": 1
+      }
+  ],
+  "precioTotal": 90828,
+  "cantidadTotal": 7,
+  "moneda": "CLP",
+  "usuario": "mich022@gmail.com",
+  "estado": "enviada",
+  "id": 1
+}
+)
 
 console.log(JSON.stringify(database));

@@ -1,12 +1,10 @@
-
-app.controller("tiendaController", ["rutas", "Auth","Compra", "Producto","SessionStorage", function(rutas, Auth, Compra, Producto, SessionStorage){
-
+app.controller("tiendaController", ["rutas", "Auth", "Producto", "Compra","SessionStorage", function(rutas, Auth, Producto, Compra, SessionStorage){
     var ctrl=this;
     ctrl.rutas = rutas;
     ctrl.usuario = Auth.parseToken(Auth.getToken()).email;
     ctrl.productos = Producto.query();
-    ctrl.compraExitosa = false;
-    ctrl.getCarrito =   function(){
+    ctrl.carrito = [];
+    ctrl.getCarrito =  function(){
         if(Object.entries(SessionStorage.getObject('carrito')).length === 0){
             ctrl.carrito = {
                 fecha: new Date(),
@@ -24,41 +22,52 @@ app.controller("tiendaController", ["rutas", "Auth","Compra", "Producto","Sessio
     };
     ctrl.getCarrito();
 
-    ctrl.addItem = function(index){
-        var itemIndex =  ctrl.carrito.items.findIndex(function(item){
-             return item.id == ctrl.productos[index].id;
-         })
-         //Verificando si el item se encuentra o no en el carrito
-         if(itemIndex==-1){
-             var item = ctrl.productos[index];
-             item.cantidad = ctrl.cant[index];
-             ctrl.carrito.items.push(item);
-         }else{
-             ctrl.carrito.items[itemIndex].cantidad = ctrl.carrito.items[itemIndex].cantidad+ctrl.cant[index];
-         }
-         ctrl.carrito.cantidadTotal = ctrl.carrito.cantidadTotal+ ctrl.cant[index]
-         ctrl.carrito.precioTotal = ctrl.carrito.precioTotal+ (ctrl.cant[index]*ctrl.productos[index].precio)
-         ctrl.cant[index] = '';
-         SessionStorage.setObject('carrito', ctrl.carrito);
-     }
-
-     //removiendo segun el index en el que se encuentra en el carrito
-     ctrl.remove = function(index){
-        var itemDelete = ctrl.carrito.items[index];
-        ctrl.carrito.cantidadTotal = ctrl.carrito.cantidadTotal - itemDelete.cantidad;
-        ctrl.carrito.precioTotal = ctrl.carrito.precioTotal - (itemDelete.cantidad*itemDelete.precio);
-        //Eliminando un elemento del carrito
-        ctrl.carrito.items.splice(index,1);
+    ctrl.addItem = function(item, index){
+        console.log(item);
+        var precioInit = ctrl.productos[index].precio;
+        if(Object.entries(ctrl.carrito.items).length === 0){
+            item.cantidad = ctrl.cantidad[index];
+            item.precio = item.cantidad*item.precio;
+            ctrl.carrito.items.push(item);
+            SessionStorage.setObject('carrito', ctrl.carrito);
+        }
+        else{
+            var ItemExist = false;
+            for(i=0;i<ctrl.carrito.items.length;i++){
+                
+                if(ctrl.carrito.items[i].id==item.id){
+                    var setCantidad = ctrl.carrito.items[i].cantidad+ctrl.cantidad[index];
+                    ctrl.carrito.items[i].cantidad = setCantidad;
+                    ctrl.carrito.items[i].precio = precioInit * setCantidad;
+                    ItemExist = true;
+                    
+                }
+            }
+            if(ItemExist==false){
+                item.cantidad = ctrl.cantidad[index];
+                item.precio = item.cantidad*item.precio;
+                ctrl.carrito.items.push(item);
+            }
+            SessionStorage.setObject('carrito', ctrl.carrito);
+        }
+        ctrl.carrito.cantidadTotal = ctrl.carrito.cantidadTotal+ctrl.cantidad[index];
+        for (var i = 0; i <ctrl.carrito.items.length ; i++){
+            ctrl.carrito.precioTotal += ctrl.carrito.items[i].precio;
+        };
+    
+    };
+    ctrl.remove=function(item){
+        var index = ctrl.carrito.items.indexOf(item);
+        ctrl.carrito.items.splice(index, 1);
+        ctrl.carrito.cantidadTotal = ctrl.carrito.cantidadTotal-ctrl.cantidad[index];
+        ctrl.carrito.precioTotal = ctrl.carrito.precioTotal-ctrl.carrito.items[index].precio;
         SessionStorage.setObject('carrito', ctrl.carrito);
-     }
+    };
 
-     ctrl.comprar = function(){
-        Compra.save(ctrl.carrito,function(carrito){
+    ctrl.compra=function(){
+        Compra.save(ctrl.carrito, function(carrito){
             SessionStorage.remove('carrito');
-            ctrl.compraExitosa = true;
             ctrl.getCarrito();
         });
-    }
-
-
+    };
 }])
